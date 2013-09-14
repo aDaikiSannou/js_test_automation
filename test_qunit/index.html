@@ -10,7 +10,20 @@
   <!-- libs -->
   <script src="../libs/jquery-2.0.3.js"></script>
   <script src="libs/qunit-1.10.0.js"></script>
+  <script src="libs/qunit-tap.js"></script>
   <script src="libs/sinon-1.7.3.js"></script>
+  <!-- code for QUnit-TAP -->
+  <script>
+    var print;
+    if (typeof console === 'object' && typeof console.log === 'function') {
+      print = function(msg) {
+        console.log('###TAP###' + msg);
+      };
+    } else {
+      print = function() {};
+    }
+    qunitTap(QUnit, print);
+  </script>
   <!-- test code -->
   <script src="js/user_spec.js"></script>
   <!-- application code -->
