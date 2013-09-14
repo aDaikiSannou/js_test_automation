@@ -9,6 +9,7 @@
   <script type="text/javascript" src="libs/jasmine.js"></script>
   <script type="text/javascript" src="libs/jasmine-html.js"></script>
   <script type="text/javascript" src="libs/jasmine-jquery.js"></script>
+  <script type="text/javascript" src="libs/tapreporter.js"></script>
   <script type="text/javascript" src="libs/sinon-1.7.3.js"></script>
 
   <!-- include source files here... -->
@@ -23,6 +24,17 @@
     (function() {
       var jasmineEnv = jasmine.getEnv();
       jasmineEnv.updateInterval = 1000;
+
+      var print;
+      if (typeof console === 'object' && typeof console.log === 'function') {
+        print = function(msg) {
+          console.log('###TAP###' + msg);
+        };
+      } else {
+        print = function() {};
+      }
+      var tapReporter = new TAPReporter(print);
+      jasmineEnv.addReporter(tapReporter);
 
       var htmlReporter = new jasmine.HtmlReporter();
 
